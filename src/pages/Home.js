@@ -8,10 +8,22 @@ import PopularProd from '../components/PopularProd'
 import BestSellers from '../components/BestSellers'
 import Feateres from '../components/Feateres'
 import HelmetTitle from '../components/HelmetTitle'
+import { useSelector } from 'react-redux'
 
 export default function Home() {
- 
+  const {isLoading} = useSelector(state => state.auth)
   return (
+    
+      isLoading ?
+       <div
+      className="spinner-border loading-store "
+      style={{ width: "4rem", height: "4rem",marginTop:"300px" }}
+      role="status"
+    >
+      <span className="visually-hidden">Loading...</span>
+    </div> :
+
+    
     <div className='home container-xxl  pt-'>
       <HelmetTitle title="Tech-Shop | Home" />
       <BannerProd />
@@ -24,5 +36,6 @@ export default function Home() {
       <PopularProd />
       <BestSellers />
     </div>
+  
   )
 }
