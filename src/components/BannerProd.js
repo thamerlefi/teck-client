@@ -23,10 +23,10 @@ export default function BannerProd() {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 1500,
+    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 2000,
     pauseOnHover: false,
     pauseOnFocus: false,
     pauseOnDotsHover: false,
