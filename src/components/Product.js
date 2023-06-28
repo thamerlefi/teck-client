@@ -48,7 +48,7 @@ export default function Product({ product, col, inWish }) {
         <div className="position-relative">
           <p className="product-price">${product.price}</p>
           {!cartProd ? (
-            <div className="position-absolute cart-action">
+            <div className="position-absolute cart-action cartt">
               <i
                 onClick={() => dispatch(addProduct(product))}
                 className={`fa-sharp fa-solid fa-cart-shopping  `}
