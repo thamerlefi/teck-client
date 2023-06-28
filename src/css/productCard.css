@@ -1,0 +1,115 @@
+
+.rem-wish{
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #70706c;
+}
+.product-card{
+    padding: 15px;
+    width: "217px" !important;
+    background-color: #fff;
+    overflow: hidden;
+    border-radius: 10px;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); */
+    box-shadow: rgb(43 52 69/ 10%) 0 4px 16px;
+}
+.product-card .product-details h6{
+    color: var(--color-brown);
+    font-size: 13px;
+    z-index: 555;
+}
+.product-img{
+    overflow: hidden;
+    padding: 5px;
+}
+.product-card img{
+    width: 100%;
+    transition: 0.5s;
+}
+.product-card .product-details h5{
+    font-size: 15px;
+    color: #131921
+}
+.product-card .product-details .product-price{
+    font-size: 16px;
+    /* color: #1c1c1b; */
+    color: #f02d34;
+    font-weight: 500;
+}
+.product-card:hover .action-bar{
+    right: 5px;
+    display: block;
+    transition: 0.5s;
+}
+
+.product-card:hover img{
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+.action-bar{
+    top: 15px;
+    right: -30px;
+    transition: 0.5s;
+}
+.action-bar i, .cart-action i{
+    /* color: #70706c; */
+    color: #f02d34;
+}
+.action-bar i:hover{
+    cursor: pointer;
+}
+.cart-action{
+    right:-40px;
+    bottom:0px;
+    cursor: pointer;
+    transition: 0.5s;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+}
+.cart-action:hover{
+    /* background-color: var(--color-search); */
+}
+.product-card:hover .cart-action{
+    right: 0;
+    transition: 0.5s;
+}
+.cart-action-2{
+    right:-0px;
+    bottom:0px;
+    cursor: pointer;
+    transition: 0.5s;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+    justify-content: center;
+}
+.btn-action{
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+    /* background-color: var(--color-search); */
+    background-color: #f02d34;
+    color: #fff;
+    width: 70px;
+    height: 25px;
+    padding: 0 5px;
+}
+.btn-action a{
+    color: #1c1c1b;
+}
+.btn-action i{
+    margin-top: -5px;
+    font-size: 13px;
+}
+/* ---------------------------- */
+/* @media (max-width: 576px){
+    .product-card{
+        width: 100%;
+    }
+} */

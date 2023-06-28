@@ -1,0 +1,48 @@
+.login{
+    width: 90%;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    height: 420px;
+}
+.login img{
+    width: 100%;
+    height: 100%;
+}
+.login-card {
+    width: 70%;
+    margin: auto;
+}
+@media (max-width:768px) {
+    .login-card {
+        width: 100%;
+    }
+    .login {
+        width: 100%;
+        height: auto;
+        padding: 0px;
+        padding-bottom: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .login .img{
+display: none;    }
+}
+
+.login .or{
+    border-top: 2px solid;
+    position: relative;
+    width: 70%;
+    margin: auto;
+    top: 13px;
+}
+.login .or-p{
+    width: 30px;
+    margin: auto;
+    background-color: #fff;
+    position: relative;
+    z-index: 10;
+}

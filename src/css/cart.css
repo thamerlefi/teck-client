@@ -1,0 +1,26 @@
+.cart{
+    width: 350px !important;
+}
+.cart .bye-now{
+    border: none;
+    /* padding: 10px 15px ; */
+    width: 90px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 400;
+    color: #fff;
+    background-color: tomato;
+}
+.cart .bye-now:hover{
+    background-color: black;
+}
+.cart .count input{
+    width: 40px;
+    padding-left: 7px;
+}
+.cart .count input:focus{
+    border: 2px solid tomato;
+    border-radius: 5px;
+    outline: none;
+}

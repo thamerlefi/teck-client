@@ -1,0 +1,45 @@
+.latest-prod{}
+.section-prod .line{
+    height: 0;
+    border-top: 2px solid;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    top: 19px;
+}
+.section-prod h4{
+    /* padding: 0 10px; */
+    background-color: #f6f9fc;
+    font-size: 25px;
+    width: 200px;
+    margin: auto;
+    position: relative;
+    z-index: 200;
+    font-family: 'Dancing Script', cursive;
+    font-weight: 900;
+}
+/* ---------- next, prev */
+.cntrl-btn button {
+    border: none;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    border-radius: 50%;
+    z-index: 10;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #0f3460;
+    color: #f6f9fc;
+    transition: 0.3s;
+}
+.cntrl-btn button:hover{
+    background-color: #e94560;
+    transition: 0.3s;
+}
+.cntrl-btn .prev{
+    left: -6px;
+}
+.cntrl-btn .next{
+    right: -6px;
+}

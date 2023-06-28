@@ -1,0 +1,38 @@
+.success-wrapper{
+    /* display: flex; */
+    margin-top: 180px !important;
+    
+}
+.success-wrapper .success{
+    background-color: #dcdcdc;
+    max-width: 700px;
+    min-height: 270px;
+    margin: auto;
+    border-radius: 15px;
+    text-align: center;
+    padding: 20px;
+}
+.success .icon {
+    font-size: 28px;
+    margin-top: 15px;
+    color: green;
+}
+.success h2{
+    color: #324d67;
+    font-weight: 700;
+}
+.success .description, 
+.success .check-history{
+    font-weight: 500;
+}
+.success .cnt-shop{
+    margin-top: 15px;
+    background-color: #f02d34;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 8px 15px;
+}
+.success .cnt-shop:hover{
+    background-color: black;
+}
