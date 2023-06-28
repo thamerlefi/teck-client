@@ -35,7 +35,7 @@ export default function Footer() {
                   <i className="fas fa-gem me-3 text-white"></i>
                   Teck-Shop
                 </h6>
-                <p>
+                <p className="text-secondary">
                 Seamless Shopping Experience For Tech Enthusiasts
                 </p>
               </div>
@@ -45,22 +45,22 @@ export default function Footer() {
                   Categories
                 </h6>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Accessories
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Camera
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Laptop
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Phone
                   </a>
                 </p>
@@ -71,22 +71,22 @@ export default function Footer() {
                   Useful links
                 </h6>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Pricing
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Settings
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Orders
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset">
+                  <a href="#!" className="text-reset link-secondary">
                     Help
                   </a>
                 </p>
@@ -95,19 +95,19 @@ export default function Footer() {
                 <h6 className="text-uppercase text-white fw-bold mb-4">
                   Contact
                 </h6>
-                <p>
+                <p className="text-secondary">
                   <i className="fas fa-home me-3 text-secondary"></i> Ksar hlel,
                   Monastir, TN
                 </p>
-                <p>
+                <p className="text-secondary">
                   <i className="fas fa-envelope me-3 text-secondary"></i>
                   info@example.com
                 </p>
-                <p>
+                <p className="text-secondary">
                   <i className="fas fa-phone me-3 text-secondary"></i> + 216 54
                   498 484
                 </p>
-                <p>
+                <p className="text-secondary">
                   <i className="fas fa-print me-3 text-secondary"></i> + 01 234
                   567 89
                 </p>
