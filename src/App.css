@@ -265,7 +265,10 @@ p{
     background-color: var(--color-dark);
     position: relative;
     z-index: 10000 !important;
+    
 }
+
+
 
 .too-top{
     display: none;
