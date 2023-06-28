@@ -45,22 +45,22 @@ export default function Footer() {
                   Categories
                 </h6>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Accessories
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Camera
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Laptop
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Phone
                   </a>
                 </p>
@@ -71,22 +71,22 @@ export default function Footer() {
                   Useful links
                 </h6>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Pricing
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Settings
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Orders
                   </a>
                 </p>
                 <p>
-                  <a href="#!" className="text-reset text-secondary">
+                  <a href="#!" className=" text-secondary">
                     Help
                   </a>
                 </p>
@@ -121,7 +121,7 @@ export default function Footer() {
           style={{ background: "rgba(0, 0, 0, 0.025)" }}
         >
           © 2021 Copyright:
-          <a className="text-reset text-secondary fw-bold" href="#!">
+          <a className=" text-secondary fw-bold" href="#!">
             Tech-shop.com
           </a>
         </div>
