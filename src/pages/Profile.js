@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import {  reset, updateUser } from "../redux/slices/authSlice";
+import { reset, updateUser } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import {  Form } from "react-bootstrap";
-import Spinner from "../components/Spinner"
+import { Form } from "react-bootstrap";
+import Spinner from "../components/Spinner";
 import HelmetTitle from "../components/HelmetTitle";
 
 export default function Profile() {
@@ -46,94 +46,105 @@ export default function Profile() {
   };
 
   return (
-    <div>
-      <HelmetTitle title="Tech-Shop | Profile" />
-      {auth.user && (
-        <div className="row">
-          <div className="col-12 col-md-4">
-            <div className="text-center">
-              <img
-                src={auth.user.image?.secure_url}
-                alt=""
-                style={{ width: "200px", borderRadius: "50%" }}
-              />
+    <>
+      {auth.isLoading ? (
+        <div
+          className="spinner-border loading-store "
+          style={{ width: "4rem", height: "4rem", marginTop: "300px" }}
+          role="status"
+        >
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      ) : (
+        <div>
+          <HelmetTitle title="Tech-Shop | Profile" />
+          {auth.user && (
+            <div className="row">
+              <div className="col-12 col-md-4">
+                <div className="text-center">
+                  <img
+                    src={auth.user.image?.secure_url}
+                    alt=""
+                    style={{ width: "200px", borderRadius: "50%" }}
+                  />
+                </div>
+                <div className="d-none d-md-block mt-4">
+                  <h5>
+                    <i className="fa-solid fa-user"></i>{" "}
+                    {auth.user?.firstName + " " + auth.user?.lastName}
+                  </h5>
+                  <h6>
+                    <i className="fa-solid fa-envelope"></i> {auth.user?.email}
+                  </h6>
+                </div>
+              </div>
+              <div className="col-12 col-md-8">
+                <Form onSubmit={updateUserHandler}>
+                  <Form.Group className="mb-3" controlId="formBasicFirstName">
+                    <Form.Label>first name</Form.Label>
+                    <Form.Control
+                      value={firstName}
+                      type="text"
+                      placeholder="update your first name"
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                    <Form.Text className="text-muted"></Form.Text>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formBasicLastName">
+                    <Form.Label>last name</Form.Label>
+                    <Form.Control
+                      value={lastName}
+                      type="text"
+                      placeholder="update your last name"
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formBasicPicture">
+                    <Form.Label>change your picture</Form.Label>
+                    <Form.Control
+                      type="file"
+                      accept="image/"
+                      onChange={uploadImgHandler}
+                    />
+                  </Form.Group>
+                  {image !== "" && (
+                    <img
+                      src={image}
+                      alt="user img"
+                      style={{ width: "60px", borderRadius: "5px" }}
+                    />
+                  )}
+                  <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>password</Form.Label>
+                    <Form.Control
+                      value={password}
+                      type="password"
+                      placeholder="update your password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3" controlId="formBasicConfirm">
+                    <Form.Label>confirm password</Form.Label>
+                    <Form.Control
+                      value={confirm}
+                      type="password"
+                      placeholder="confirm your password"
+                      onChange={(e) => setConfirm(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <button className="button" type="submit">
+                    {auth.isLoading ? <Spinner size="sm" /> : "update"}
+                  </button>
+                </Form>
+              </div>
             </div>
-            <div className="d-none d-md-block mt-4">
-              <h5>
-                <i className="fa-solid fa-user"></i>{" "}
-                {auth.user?.firstName + " " + auth.user?.lastName}
-              </h5>
-              <h6>
-                <i className="fa-solid fa-envelope"></i> {auth.user?.email}
-              </h6>
-            </div>
-          </div>
-          <div className="col-12 col-md-8">
-            <Form onSubmit={updateUserHandler}>
-              <Form.Group className="mb-3" controlId="formBasicFirstName">
-                <Form.Label>first name</Form.Label>
-                <Form.Control
-                  value={firstName}
-                  type="text"
-                  placeholder="update your first name"
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-                <Form.Text className="text-muted"></Form.Text>
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicLastName">
-                <Form.Label>last name</Form.Label>
-                <Form.Control
-                  value={lastName}
-                  type="text"
-                  placeholder="update your last name"
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPicture">
-                <Form.Label>change your picture</Form.Label>
-                <Form.Control
-                  type="file"
-                  accept="image/"
-                  onChange={uploadImgHandler}
-                />
-              </Form.Group>
-              {image !== "" && (
-                <img
-                  src={image}
-                  alt="user img"
-                  style={{ width: "60px", borderRadius: "5px" }}
-                />
-              )}
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>password</Form.Label>
-                <Form.Control
-                  value={password}
-                  type="password"
-                  placeholder="update your password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicConfirm">
-                <Form.Label>confirm password</Form.Label>
-                <Form.Control
-                  value={confirm}
-                  type="password"
-                  placeholder="confirm your password"
-                  onChange={(e) => setConfirm(e.target.value)}
-                />
-              </Form.Group>
-
-              <button className="button" type="submit">
-                {auth.isLoading ? <Spinner size="sm" /> : "update"}
-              </button>
-              
-            </Form>
-          </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   );
 }

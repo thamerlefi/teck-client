@@ -131,10 +131,19 @@ export default function ProductDetails() {
   };
 
   return (
-    products.message==="product not found" ? 
+    auth.isLoading ? 
+    <div
+      className="spinner-border loading-store "
+      style={{ width: "4rem", height: "4rem", marginTop: "300px" }}
+      role="status"
+    >
+      <span className="visually-hidden">Loading...</span>
+    </div>:
+    <>
+    {products.message==="product not found" ? 
     <>
     <HelmetTitle title="Tech-Shop | Not Found" />
-    < NotFound msg="Product Not Found" />
+    < NotFound msg="404 Not Found" />
     </>:
     <>
       {/* ----------------------------------------- prod details */}
@@ -328,6 +337,7 @@ export default function ProductDetails() {
           ))}
         </Slider>
       </div>
+    </>}
     </>
   );
 }

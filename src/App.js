@@ -8,9 +8,9 @@ import Cart from "./pages/Cart";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NotFound from "./pages/NotFound";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getUser } from "./redux/slices/authSlice";
 import { Container } from "react-bootstrap";
 import Admin from "./pages/Admin";
@@ -40,13 +40,19 @@ import About from "./pages/About";
 // import { getAllProducts } from './redux/slices/productSlice';
 
 function App() {
-  // const {isLoggedIn} = useSelector(state => state.auth)
+  const {isLoading, isLoggedIn, user} = useSelector(state => state.auth)
+  const [isAuth, setIsAuth] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   window.addEventListener("scroll", () => {
     const toTop = document.querySelector(".too-top");
     toTop.classList.toggle("d-block", window.scrollY > 60);
   });
   const dispatch = useDispatch();
   const location = useLocation()
+  useEffect(()=>{
+    if (isLoggedIn) setIsAuth(true)
+    if (user?.isAdmin) setIsAdmin(true)
+  },[isLoggedIn, user])
   useEffect(() => {
     dispatch(getUser());
     dispatch(getTotal());
@@ -72,11 +78,13 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/payment-success" element={<CheckoutSuccess />} />
           <Route path="/location" element={<GoogleMapLocation />} />
+          {isAuth && 
           <Route path="/user" element={<UserDash />}>
             <Route path="profile" element={<Profile />} />
             <Route path="orders" element={<OrderHistory />} />
             <Route path="orders/:id" element={<UserOneOrder />} />
-          </Route>
+          </Route>}
+          { isAdmin &&
           <Route path="/admin" element={<Admin />}>
             <Route path="users" element={<UsersList />} />
             <Route path="products" element={<AdminProducts />} />
@@ -84,7 +92,7 @@ function App() {
             <Route path="orders" element={<AdminOrdersList />} />
             <Route path="orders/:orderId" element={<AdminOrder />} />
             <Route path="dashboard" element={<AdminDashboard />} />
-          </Route>
+          </Route>}
           <Route path="*" element={<NotFound msg="404 Not Found"/>} />
         </Routes>
       </div>
