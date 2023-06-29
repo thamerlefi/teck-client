@@ -8,6 +8,7 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const initialState = {
     isLoading: false,
     isSuccess: false,
+    updatePending: false,
     isError: false,
     isLoggedIn: false,
     message: "",
@@ -173,13 +174,14 @@ const authSlice = createSlice({
         })
         //----------------------------------- update user cases
         builder.addCase(updateUser.pending, (state)=>{
-            return {...state, isLoading: true, isSuccess: false, isError: false, message:'' }
+            return {...state, updatePending: true, isSuccess: false, isError: false, message:'' }
         })
         builder.addCase(updateUser.fulfilled, (state,action)=>{
             return {...state, 
                     isSuccess:true, 
                     isLoading: false,
                     isError: false,
+                    updatePending: false,
                     isLoggedIn: true,
                     message:action.payload.message,
                     user: action.payload.user}
@@ -188,6 +190,7 @@ const authSlice = createSlice({
             return {...state, 
                     isError: true, 
                     isLoading:false, 
+                    updatePending: false,
                     isSuccess: false, 
                     message: action.payload}
         })

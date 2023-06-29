@@ -129,7 +129,7 @@ export default function Profile() {
                   </Form.Group>
 
                   <button className="button" type="submit">
-                    {auth.isLoading ? <Spinner size="sm" /> : "update"}
+                    {auth.updatePending ? <Spinner size="sm" /> : "update"}
                   </button>
                 </Form>
               </div>
