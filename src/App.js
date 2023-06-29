@@ -50,9 +50,9 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation()
   useEffect(()=>{
-    if (isLoggedIn) setIsAuth(true)
+    if (isLoggedIn && !isLoading) setIsAuth(true)
     if (user?.isAdmin) setIsAdmin(true)
-  },[isLoggedIn, user])
+  },[isLoggedIn,isLoading ,user])
   useEffect(() => {
     dispatch(getUser());
     dispatch(getTotal());

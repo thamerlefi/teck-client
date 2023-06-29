@@ -5,11 +5,13 @@ import { addProduct, decCount, incCount } from "../redux/slices/cartSlice";
 import "../css/productCard.css";
 import ReactStars from "react-rating-stars-component";
 import { addToWish, deleteFromWish } from "../redux/slices/wishSlice";
+import { toast } from "react-toastify";
 
 export default function Product({ product, col, inWish }) {
   const dispatch = useDispatch();
   const { cart } = useSelector((state) => state.shopCart);
   const { wishList } = useSelector((state) => state.wishList);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const cartProd = cart.find((prod) => prod._id === product._id);
   const wishProd = wishList.find((prod) => prod._id === product._id);
 
@@ -45,7 +47,10 @@ export default function Product({ product, col, inWish }) {
           {!cartProd ? (
             <div className="position-absolute cart-action cartt">
               <i
-                onClick={() => dispatch(addProduct(product))}
+                onClick={() => {
+                  isLoggedIn ? dispatch(addProduct(product)) :
+                  toast(`you must loggin first`,  {type: "error"})
+                }}
                 className={`fa-sharp fa-solid fa-cart-shopping  `}
               ></i>
             </div>
@@ -84,7 +89,10 @@ export default function Product({ product, col, inWish }) {
               className={`${
                 wishProd ? "fa-solid" : "fa-regular"
               } fa-heart fs-6 ${wishProd ? "text-danger" : ""}`}
-              onClick={() => dispatch(addToWish(product))}
+              onClick={() => {
+                isLoggedIn ? dispatch(addToWish(product)):
+                toast(`you must loggin first`,  {type: "error"})
+              }}
             ></i>
             <Link to={"/" + product._id}>
               <i className="fa-solid fa-eye fs-6"></i>

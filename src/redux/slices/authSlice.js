@@ -90,6 +90,7 @@ const authSlice = createSlice({
             state.token = null
             state.user = null
             state.message = ''
+            
         },
         pending: (state) => {
             return {...state, isLoading: true,isSuccess: false,isError: false,message: ""}

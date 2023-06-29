@@ -11,6 +11,8 @@ import {
 } from "../redux/slices/productSlice";
 import axios from "axios";
 import { baseURL } from "../baseURL";
+import { clearCart } from "../redux/slices/cartSlice";
+import { clearWishList } from "../redux/slices/wishSlice";
 
 export default function NavBar() {
   
@@ -45,6 +47,8 @@ export default function NavBar() {
   //-------------------------- logout
   const logoutHandler = () => {
     dispatch(logout());
+    dispatch(clearCart())
+    dispatch(clearWishList())
     navigate("/login");
   };
   //----------- search
