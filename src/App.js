@@ -41,7 +41,7 @@ import About from "./pages/About";
 
 function App() {
   const {isLoading, isLoggedIn, user} = useSelector(state => state.auth)
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(true)
   const [isAdmin, setIsAdmin] = useState(false)
   window.addEventListener("scroll", () => {
     const toTop = document.querySelector(".too-top");
@@ -50,7 +50,8 @@ function App() {
   const dispatch = useDispatch();
   const location = useLocation()
   useEffect(()=>{
-    if (isLoggedIn && !isLoading) setIsAuth(true)
+    if (isLoggedIn || isLoading) setIsAuth(true)
+    else if(!isLoggedIn && !isLoading) setIsAuth(false)
     if (user?.isAdmin) setIsAdmin(true)
   },[isLoggedIn,isLoading ,user])
   useEffect(() => {

@@ -47,15 +47,7 @@ export default function Profile() {
 
   return (
     <>
-      {auth.isLoading ? (
-        <div
-          className="spinner-border loading-store "
-          style={{ width: "4rem", height: "4rem", marginTop: "300px" }}
-          role="status"
-        >
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      ) : (
+      { (
         <div>
           <HelmetTitle title="Tech-Shop | Profile" />
           {auth.user && (
