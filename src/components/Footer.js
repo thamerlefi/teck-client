@@ -6,22 +6,39 @@ export default function Footer() {
       <footer className="text-center text-lg-start  text-muted mt-2">
         <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
           <div className="me-5 d-none d-lg-block">
-            <span className="text-secondary">Get connected with us on social networks:</span>
+            <span className="text-secondary">
+              Get connected with us on social networks:
+            </span>
           </div>
 
           <div>
-            <a href="https://www.facebook.com/profile.php?id=100008373409490" target="_blank" rel="noreferrer" className="me-4 link-secondary">
+            <a
+              href="https://www.facebook.com/profile.php?id=100008373409490"
+              target="_blank"
+              rel="noreferrer"
+              className="me-4 link-secondary"
+            >
               <i className="fab fa-facebook-f"></i>
             </a>
-            
+
             {/* <a href="" className="me-4 link-secondary">
               <i className="fab fa-google"></i>
             </a> */}
-            
-            <a href="https://www.linkedin.com/in/themer-lefi-a97bb6268/" target="_blank" rel="noreferrer" className="me-4 link-secondary">
+
+            <a
+              href="https://www.linkedin.com/in/themer-lefi-a97bb6268/"
+              target="_blank"
+              rel="noreferrer"
+              className="me-4 link-secondary"
+            >
               <i className="fab fa-linkedin"></i>
             </a>
-            <a href="https://github.com/thamerlefi" target="_blank" rel="noreferrer" className="me-4 link-secondary">
+            <a
+              href="https://github.com/thamerlefi"
+              target="_blank"
+              rel="noreferrer"
+              className="me-4 link-secondary"
+            >
               <i className="fab fa-github"></i>
             </a>
           </div>
@@ -36,7 +53,7 @@ export default function Footer() {
                   Teck-Shop
                 </h6>
                 <p className="text-secondary">
-                Seamless Shopping Experience For Tech Enthusiasts
+                  Seamless Shopping Experience For Tech Enthusiasts
                 </p>
               </div>
 

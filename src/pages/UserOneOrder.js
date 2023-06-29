@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { baseURL } from "../baseURL";
 import axios from "axios";
 import OrderDetails from "../components/OrderDetails";
@@ -9,6 +9,10 @@ export default function UserOneOrder() {
   const [order, setOrder] = useState({});
   const [pending, setPending] = useState(true);
 
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   useEffect(() => {
     axios
       .get(`${baseURL}api/orders/user/order/${id}`, {
@@ -21,11 +25,15 @@ export default function UserOneOrder() {
         setPending(false);
       });
   }, []);
-  return pending ? <div
-  className="spinner-border loading-store "
-  style={{ width: "3rem", height: "3rem" }}
-  role="status"
->
-  <span className="visually-hidden">Loading...</span>
-</div> : <OrderDetails order={order} />;
+  return pending ? (
+    <div
+      className="spinner-border loading-store "
+      style={{ width: "3rem", height: "3rem" }}
+      role="status"
+    >
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  ) : (
+    <OrderDetails order={order} />
+  );
 }

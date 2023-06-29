@@ -5,9 +5,10 @@ import { baseURL } from "../baseURL";
 import OrderDetails from "./OrderDetails";
 
 export default function AdminOrder() {
+  const { orderId } = useParams();
   const [order, setOrder] = useState({});
   const [pending, setPending] = useState(true);
-  const { orderId } = useParams();
+  // get the order by id (for admin)
   useEffect(() => {
     axios
       .get(`${baseURL}api/orders/${orderId}`, {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../css/bannerProd.css";
-import { useSelector } from "react-redux";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -11,6 +10,8 @@ import {LinkContainer} from "react-router-bootstrap"
 
 export default function BannerProd() {
   const [products, setProducts] = useState([]);
+
+  // get 4 lowest selling products for publicize them 
   useEffect(() => {
     axios
       .get(
@@ -20,6 +21,7 @@ export default function BannerProd() {
       .then((res) => setProducts(res.data.pagination.list))
       .catch((err) => toast(err.response.data.message, { type: "error" }));
   }, []);
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -64,24 +66,7 @@ export default function BannerProd() {
           
         </Slider>
       </div>
-      {/* <div className="part  col-12 col-md-6 d-flex flex-column justify-content-between gap-4 gap-md-0">
-        <div className="row ">
-            <div className="col-6">
-                <img className="img-fluid rounded-3" src={require('../img/catbanner-01.jpg')} style={{width:"100%"}} alt="" />
-            </div>
-            <div className="col-6">
-            <img className="img-fluid rounded-3" src={require('../img/catbanner-02.jpg')} style={{width:"100%"}} alt="" />
-            </div>
-        </div>
-        <div className="row ">
-        <div className="col-6">
-                <img className="img-fluid rounded-3" src={require('../img/catbanner-03.jpg')} style={{width:"100%"}} alt="" />
-            </div>
-            <div className="col-6">
-            <img className="img-fluid rounded-3"  src={require('../img/catbanner-04.jpg')} style={{width:"100%"}} alt="" />
-            </div>
-        </div>
-      </div> */}
+      
     </div>
   );
 }

@@ -1,22 +1,26 @@
-import { NavLink } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/slices/authSlice";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { useEffect, useState, useRef } from "react";
 import Cart from "../pages/Cart";
-import { clearProdSearch, editCateg, getProdSearch } from "../redux/slices/productSlice";
+import {
+  clearProdSearch,
+  editCateg,
+  getProdSearch,
+} from "../redux/slices/productSlice";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 
-
 export default function NavBar() {
-  window.addEventListener("scroll",()=>{
-    const headerBottom = document.querySelector('.header-bottom')
-    const headerTop = document.querySelector('.header-upper')
-    headerBottom.classList.toggle("hide", window.scrollY > 60)
-    headerTop.classList.toggle("opacity", window.scrollY > 60)
-  })
+  
+  // scroll event to hide the nav-bottom when scrolling to bottom
+  window.addEventListener("scroll", () => {
+    const headerBottom = document.querySelector(".header-bottom");
+    const headerTop = document.querySelector(".header-upper");
+    headerBottom.classList.toggle("hide", window.scrollY > 60);
+    headerTop.classList.toggle("opacity", window.scrollY > 60);
+  });
   const ref = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,38 +29,43 @@ export default function NavBar() {
   // -------------------- redux states
   const { user, isLoggedIn } = useSelector((state) => state.auth);
   const shopCart = useSelector((state) => state.shopCart);
-  const {wishList} = useSelector((state) => state.wishList);
-  const {prodSearch, products} = useSelector(state=>state.products)
+  const { wishList } = useSelector((state) => state.wishList);
+  const { prodSearch,  } = useSelector((state) => state.products);
 
   // -------------------- states
   const [showMenu, setShowMenu] = useState(false);
   const [prodSrch, setProdSearch] = useState("");
   const [categories, setCategories] = useState([]);
-  
+
   // ---------------------------- functions
   const { pathname } = location;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  //-------------------------- logout
   const logoutHandler = () => {
     dispatch(logout());
     navigate("/login");
   };
-  
-  const searchHandler = (e)=>{
-    e.preventDefault()
-    dispatch(getProdSearch(prodSrch.trim().split(' ').join('+')))
-    if (prodSrch) navigate('/store')
-  }
-
-  const categHandler =(categ)=>{
-    dispatch(editCateg(categ))
-    navigate('/store')
-  }
+  //----------- search
+  const searchHandler = (e) => {
+    e.preventDefault();
+    dispatch(getProdSearch(prodSrch.trim().split(" ").join("+")));
+    if (prodSrch) navigate("/store");
+  };
+  //---------- filter by categ
+  const categHandler = (categ) => {
+    dispatch(editCateg(categ));
+    navigate("/store");
+  };
 
   // -------------------- use effect
-  useEffect(()=>{
-    axios.get(baseURL + "api/products/categories")
-    .then(res => setCategories(res.data.categories))
-    .catch(err =>console.log(err.message))
-  },[])
+  useEffect(() => {
+    axios
+      .get(baseURL + "api/products/categories")
+      .then((res) => setCategories(res.data.categories))
+      .catch((err) => console.log(err.message));
+  }, []);
 
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -105,17 +114,28 @@ export default function NavBar() {
                   placeholder="Search Product..."
                   aria-label="Search Product..."
                   aria-describedby="basic-addon2"
-                  onChange={(e)=>setProdSearch(e.target.value)}
+                  onChange={(e) => setProdSearch(e.target.value)}
                 />
-                {!prodSearch ? <span onClick={searchHandler} className="input-group-text search" id="basic-addon2">
-                  <BsSearch />
-                </span> :
-                <span onClick={()=>{
-                  dispatch(clearProdSearch())
-                  setProdSearch('')}} className="input-group-text search" id="basic-addon2">
-                  <i className="fa-solid   fa-xmark" ></i>
-                </span>
-                }
+                {!prodSearch ? (
+                  <span
+                    onClick={searchHandler}
+                    className="input-group-text search"
+                    id="basic-addon2"
+                  >
+                    <BsSearch />
+                  </span>
+                ) : (
+                  <span
+                    onClick={() => {
+                      dispatch(clearProdSearch());
+                      setProdSearch("");
+                    }}
+                    className="input-group-text search"
+                    id="basic-addon2"
+                  >
+                    <i className="fa-solid   fa-xmark"></i>
+                  </span>
+                )}
               </form>
             </div>
             {/* ---------------------------------------------- LINKS ----------------- */}
@@ -127,21 +147,21 @@ export default function NavBar() {
                     <i className="fa-regular   fa-heart text-white fs-4"></i>
                   </Link>
                   {wishList.length > 0 && (
-                      <span
-                        className="ms-0 position-absolute"
-                        style={{
-                          color: "#fff",
-                          background: "#f02d34",
-                          width: "20px",
-                          height: "20px",
-                          textAlign:"center",
-                          fontSize:"13px",
-                          borderRadius: "50%",
-                        }}
-                      >
-                        {wishList.length}
-                      </span>
-                    )}
+                    <span
+                      className="ms-0 position-absolute"
+                      style={{
+                        color: "#fff",
+                        background: "#f02d34",
+                        width: "20px",
+                        height: "20px",
+                        textAlign: "center",
+                        fontSize: "13px",
+                        borderRadius: "50%",
+                      }}
+                    >
+                      {wishList.length}
+                    </span>
+                  )}
                 </div>
                 {/* ------------------------- cart icon ------- */}
                 <div className="position-relative">
@@ -160,8 +180,8 @@ export default function NavBar() {
                           background: "#f02d34",
                           width: "20px",
                           height: "20px",
-                          textAlign:"center",
-                          fontSize:"13px",
+                          textAlign: "center",
+                          fontSize: "13px",
                           borderRadius: "50%",
                         }}
                       >
@@ -213,13 +233,13 @@ export default function NavBar() {
                         </li>
                         <li>
                           <Link to="/user/profile" className="dropdown-item">
-                          <i class="fa-solid fa-user me-2"></i>
+                            <i class="fa-solid fa-user me-2"></i>
                             Profile
                           </Link>
                         </li>
                         <li>
                           <Link to="/user/orders" className="dropdown-item">
-                          <i className="fa-solid fa-pen me-2"></i>
+                            <i className="fa-solid fa-pen me-2"></i>
                             Orders History
                           </Link>
                         </li>
@@ -264,14 +284,11 @@ export default function NavBar() {
                         className="dropdown-menu"
                         aria-labelledby="dropdownMenuButton1"
                       >
-                        {
-                          categories?.map(categ =>(    
-                        <li key={categ} onClick={()=>categHandler(categ)}>
-                          <Link  className="dropdown-item">{categ}</Link>
-                        </li>
-                          ))
-                        }
-                        
+                        {categories?.map((categ) => (
+                          <li key={categ} onClick={() => categHandler(categ)}>
+                            <Link className="dropdown-item">{categ}</Link>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -297,7 +314,8 @@ export default function NavBar() {
                               to="/admin/dashboard"
                               className="dropdown-item"
                             >
-                              <i className="fa-solid fa-chart-line"></i> Dashboard
+                              <i className="fa-solid fa-chart-line"></i>{" "}
+                              Dashboard
                             </Link>
                           </li>
                           <li>

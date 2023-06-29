@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import "../css/user-dash.css"
 
 export default function UserDash() {
-  const location = useLocation()
+  // const location = useLocation()
   const [activeRoute, setActiveRoute] = useState("profile")
+  const { pathname } = useLocation();
+
   useEffect(()=>{
-    if(location.pathname.includes("/user/orders") ) setActiveRoute("orders")
+    window.scrollTo(0, 0);
+    if(pathname.includes("/user/orders") ) setActiveRoute("orders")
     else setActiveRoute("profile")
-  },[location.pathname])
+  },[pathname])
   return (
     <div className='mt-0 container-xxl user-dash'>
         <div className='links '>

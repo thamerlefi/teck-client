@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register, reset } from "../redux/slices/authSlice";
 import HelmetTitle from "../components/HelmetTitle";
@@ -14,6 +13,10 @@ export default function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoggedIn, isLoading } = useSelector((state) => state.auth);
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   useEffect(() => {
     if (isLoggedIn) navigate("/");
     else dispatch(reset());
@@ -30,7 +33,7 @@ export default function Register() {
       <HelmetTitle title="Tech-Shop | Register" />
       <div className="row login">
         <div className="col-12 col-md-6 p-0 img">
-          <img src="img/4.jpg" alt="" />
+          <img src="img/login.jpg" alt="" />
         </div>
         <div className="col-12 col-md-6 px-3 px-md-5 pt-2">
           <h4 className="text-center">Sign Up</h4>

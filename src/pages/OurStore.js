@@ -4,7 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCateg, getAllProducts } from "../redux/slices/productSlice";
 import Product from "../components/Product";
-import { Link,  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import RangeSlider from "react-range-slider-input";
@@ -273,19 +273,18 @@ export default function OurStore() {
           </div>
           {/* ------------ prod list */}
           {!isLoading ? (
-            
-              products.list.length === 0 ?
-              <NotFound msg="No Product Found" mt="15px"/> :
+            products.list.length === 0 ? (
+              <NotFound msg="No Product Found" mt="15px" />
+            ) : (
               <div
-              className="products-list row mt-2 gap-2"
-              style={{ width: "100%" }}
-            >
-              {products.list.map((prod) => (
-                <Product col="custom-col " product={prod} key={prod._id} />
-              ))}
-            </div>
-            
-            
+                className="products-list row mt-2 gap-2"
+                style={{ width: "100%" }}
+              >
+                {products.list.map((prod) => (
+                  <Product col="custom-col " product={prod} key={prod._id} />
+                ))}
+              </div>
+            )
           ) : (
             <div
               className="spinner-border loading-store "

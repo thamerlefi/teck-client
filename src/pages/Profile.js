@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getUser, reset, updateUser } from "../redux/slices/authSlice";
+import {  reset, updateUser } from "../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
-import { toast } from "react-toastify";
+import {  Form } from "react-bootstrap";
 import Spinner from "../components/Spinner"
 import HelmetTitle from "../components/HelmetTitle";
 

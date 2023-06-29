@@ -160,7 +160,7 @@ export default function UsersList() {
                 </p>
                 </td>
               <td>
-                <a href="#" className="text-secondary">
+                <a href="#!" className="text-secondary">
                   <i
                     onClick={() => deleteUserHandler(user)}
                     className="fa-solid fa-trash "

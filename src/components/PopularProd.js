@@ -75,7 +75,7 @@ export default function PopularProd() {
     </div>
   )
 }
-
+// -------------- slider next and prev buttons
 function SlickNext(props){
   const {onClick} = props
 

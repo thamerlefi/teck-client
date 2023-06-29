@@ -5,6 +5,8 @@ import { baseURL } from "../baseURL";
 
 export default function CategChart() {
   const [categories, setCategories] = useState([]);
+
+  // for each categ getting the number of selling
   useEffect(() => {
     axios
       .get(baseURL + "api/orders/order-count-by-category", {
@@ -14,13 +16,14 @@ export default function CategChart() {
       })
       .then((res) => setCategories(res.data));
   }, []);
+
   let data = [
     ["Task", "Hours per Day"],
     
   ];
-  categories.map(cat =>{
-    data.push(cat)
-  })
+
+  categories.map(cat =>data.push(cat))
+  
   const options = {
     title: "Selling By Categories",
     pieHole: 0.4,

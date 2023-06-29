@@ -127,12 +127,12 @@ const authSlice = createSlice({
                 isSuccess: false, 
                 message: action.payload}
         })
-
+        // ---------- register cases
         builder
-        .addCase(register.pending, (state)=>{
+        .addCase(register.pending, (state)=>{ // register pending
             return {...state, isLoading: true, isSuccess: false, isError: false, message:''}
         })
-        .addCase(register.fulfilled, (state,action)=>{
+        .addCase(register.fulfilled, (state,action)=>{ // register fulfilled
             return {...state, 
                 isSuccess:true, 
                 isLoading: false,
@@ -142,7 +142,7 @@ const authSlice = createSlice({
                 user: action.payload.user,
                 token: action.payload.token}
         })
-        .addCase(register.rejected, (state,action)=>{
+        .addCase(register.rejected, (state,action)=>{ // register rejected
             return {...state, 
                 isError: true, 
                 isLoading:false, 

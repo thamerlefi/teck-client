@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneProduct } from "../redux/slices/productSlice";
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { baseURL } from "../baseURL";
 import { toast } from "react-toastify";
@@ -19,6 +19,7 @@ import HelmetTitle from "../components/HelmetTitle";
 
 export default function ProductDetails() {
   const [starsKey, setStarsKey] = useState(Math.random());
+  const [pending, setPending] = useState(false)
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const auth = useSelector((state) => state.auth);
@@ -46,7 +47,10 @@ export default function ProductDetails() {
     };
     e.preventDefault();
     try {
-      if (rating === 0) return toast("Rating is required", { type: "error" });
+      setPending(true)
+      if (rating === 0) {
+        setPending(false)
+        return toast("Rating is required", { type: "error" });}
       const res = await axios.post(
         `${baseURL}api/products/${id}/comment`,
         data,
@@ -57,14 +61,16 @@ export default function ProductDetails() {
         }
       );
       toast(res.data.message, { type: "success" });
+      setPending(false)
       dispatch(getOneProduct(id));
       setComment("");
       setRating(0);
     } catch (error) {
+      setPending(false)
       toast(error.response.data.message, { type: "error" });
     }
   };
-
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -259,7 +265,9 @@ export default function ProductDetails() {
                   />
                 </div>
                 <div className="col-12 col-sm-5 col-md-2 mt-3 mt-md-0">
-                  <button className="button">submit</button>
+                  <button className="button">
+                    {pending ? <Spinner size="sm"/> : "submit"} 
+                  </button>
                 </div>
               </form>
             ) : (

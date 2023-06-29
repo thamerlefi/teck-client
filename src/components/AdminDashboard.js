@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { baseURL } from "../baseURL";
 import axios from "axios";
 import CategChart from "./CategChart";
@@ -13,12 +12,11 @@ export default function AdminDashboard() {
   const [wallet, setWallet] = useState(0);
 
   useEffect(() => {
-    
     getDashInfo();
   }, []);
 
+  // get num of all users, all products, all orders and the total mount 
   async function getDashInfo() {
-   
     try {
       const res = await axios.get(baseURL + "api/admin", {
         headers: {
@@ -29,14 +27,17 @@ export default function AdminDashboard() {
       setUsers(res.data.users);
       setOrders(res.data.orders);
       setWallet(res.data.walletBalance);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.message)
+    }
   }
 
   return (
     <div className="mt-3 admin-dash pe-0">
-      <HelmetTitle title="Tech-Shop | Dashboard" />
+      <HelmetTitle title="Dashboard" />
       {/* ----------------------------------- part-1 */}
       <div className="row gap-2 part-1">
+        {/* --------------------------------- users */}
         <div
           className="part col-12 "
           style={{ background: "linear-gradient(45deg, #ff009d, #e7645b)" }}
@@ -49,6 +50,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
+        {/* --------------------------------- products */}
         <div
           className="part col-12"
           style={{ background: "linear-gradient(45deg, #491ba0, #af5be7)" }}
@@ -61,26 +63,26 @@ export default function AdminDashboard() {
             </div>
           </div>
         </div>
+        {/* --------------------------------- orders */}
         <div
           className="part col-12"
           style={{ background: "linear-gradient(45deg, #1b76a0, #5ba8e7)" }}
         >
-          
           <div className="d-flex gap-2 align-items-center">
-          <i className="fa-solid text-white fa-pen me-2 fs-2"></i>
+            <i className="fa-solid text-white fa-pen me-2 fs-2"></i>
             <div>
               <h5 className="text-white">{orders}</h5>
               <h4 className="text-white">Orders</h4>
             </div>
           </div>
         </div>
+        {/* --------------------------------- balance */}
         <div
           className="part col-12"
           style={{ background: "linear-gradient(45deg, #c9bd19, #d1c95b)" }}
         >
-          
           <div className="d-flex gap-2 align-items-center">
-          <i className="fa-solid fa-wallet text-white fs-2"></i>
+            <i className="fa-solid fa-wallet text-white fs-2"></i>
             <div>
               <h5 className="text-white">{wallet} $</h5>
               <h5 className="text-white">Wallet balance</h5>
@@ -94,7 +96,7 @@ export default function AdminDashboard() {
           <AdminChart />
         </div>
         <div className="col-12 col-md-4 part p-0">
-        <CategChart />
+          <CategChart />
         </div>
       </div>
     </div>

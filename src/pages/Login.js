@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {  login, reset } from "../redux/slices/authSlice";
 import Spinner from "../components/Spinner"
 import "../css/login.css";
@@ -15,6 +15,10 @@ export default function Login() {
     (state) => state.auth
   );
 
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   useEffect(() => {
     if (isLoggedIn) navigate("/");
     else dispatch(reset());

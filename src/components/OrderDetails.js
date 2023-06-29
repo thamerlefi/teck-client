@@ -1,14 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { baseURL } from "../baseURL";
-import Spinner from "./Spinner"
+import Spinner from "./Spinner";
 
-export default function OrderDetails({order, isAdmin, setOrder }) {
- 
+export default function OrderDetails({ order, isAdmin, setOrder }) {
   const [pending, setPending] = useState(false);
   //------------------------- update Status function
   const updateStatusHandler = (status, id) => {
-    setPending(true)
+    setPending(true);
     let action =
       status === "Pending"
         ? "Processing"
@@ -28,14 +27,17 @@ export default function OrderDetails({order, isAdmin, setOrder }) {
         }
       )
       .then((res) => {
-        setOrder(res.data.updatedOrder)
-        setPending(false)
+        setOrder(res.data.updatedOrder);
+        setPending(false);
       })
       .catch((er) => console.log(er));
   };
   return (
     <div className="mt-2">
-      <div className="row mt-3 d-flex align-items-center m-auto flex-wrap pb-2" style={{ maxWidth: "800px" }}>
+      <div
+        className="row mt-3 d-flex align-items-center m-auto flex-wrap pb-2"
+        style={{ maxWidth: "800px" }}
+      >
         <div className="col-12 col-sm-4 ">
           <h5 className="mb-3 mb-sm-0">{`Total: ${order.totalPrice} $`}</h5>
         </div>
@@ -53,29 +55,33 @@ export default function OrderDetails({order, isAdmin, setOrder }) {
               }`}
             >
               {order.status}
-              {order.status === "Delivered" && <i className="fa-solid ms-1 fa-check"></i>}
+              {order.status === "Delivered" && (
+                <i className="fa-solid ms-1 fa-check"></i>
+              )}
             </span>
           </div>
           {isAdmin && (
             <div className="mb-0 mb-sm-2">
-              {order.status !== "Delivered" && <button
-                disabled={order.status === "Delivered" ? true : false}
-                className="link"
-                onClick={() => updateStatusHandler(order.status, order._id)}
-              >
-                {
-                  pending ? <Spinner size="sm"/> :
-                (order.status === "Pending"
-                  ? "Processing"
-                  : order.status === "Processing"
-                  ? "Shipped"
-                  : order.status === "Shipped"
-                  ? "Delivered"
-                  : "ended")
-                  }
-                {
-                 <i className="fa-solid ms-1 fa-arrow-right"></i>}
-              </button>}
+              {order.status !== "Delivered" && (
+                <button
+                  disabled={order.status === "Delivered" ? true : false}
+                  className="link"
+                  onClick={() => updateStatusHandler(order.status, order._id)}
+                >
+                  {pending ? (
+                    <Spinner size="sm" />
+                  ) : order.status === "Pending" ? (
+                    "Processing"
+                  ) : order.status === "Processing" ? (
+                    "Shipped"
+                  ) : order.status === "Shipped" ? (
+                    "Delivered"
+                  ) : (
+                    "ended"
+                  )}
+                  {<i className="fa-solid ms-1 fa-arrow-right"></i>}
+                </button>
+              )}
             </div>
           )}
         </div>

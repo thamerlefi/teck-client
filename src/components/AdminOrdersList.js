@@ -8,6 +8,7 @@ import HelmetTitle from "./HelmetTitle";
 export default function AdminOrdersList() {
   const [orders, setOrders] = useState([]);
   const [pending, setPending] = useState(true);
+
   //----------- sortBy state
   const [sortBy, setSortBy] = useState("createdAt");
   const [order, setOrder] = useState("asc");
@@ -40,6 +41,7 @@ export default function AdminOrdersList() {
     PagesButtons.push(i);
   }
 
+  // convert date
   const tranformDate = (date) => {
     let endDt = "",
       hr = "",
@@ -50,11 +52,12 @@ export default function AdminOrdersList() {
     endDt = hr + "-" + dt;
     return endDt;
   };
-
+  // ----------------------------------------------- JSX
   return (
     <>
       <HelmetTitle title="Dashboard | Orders" />
       {
+        // ---------------------------------- orders table
         <div className="mt-2 orders-list">
           <table className="table table-striped align-middle mb-0 bg-white custom-table">
             <thead className="bg-light">
@@ -136,6 +139,7 @@ export default function AdminOrdersList() {
           </table>
         </div>
       }
+      
       <div className="section mt-2 d-flex align-items-center justify-content-between">
         <div>
           <select
