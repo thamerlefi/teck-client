@@ -10,8 +10,8 @@ import HelmetTitle from "./HelmetTitle";
 
 export default function UsersList() {
   const dispatch = useDispatch();
-  const {isLoading} = useSelector(state=>state.auth)
-
+  // const {isLoading} = useSelector(state=>state.auth)
+  const [pending, setPending] = useState(true)
   const [allUsers, setAllUsers] = useState([]);
   const [pages, setPages] = useState(1);
   const [activePage, setActivePage] = useState(1);
@@ -27,7 +27,7 @@ export default function UsersList() {
   //------------------------------ get all users handler (admin)
   async function getAllUsers(limit, page, sortBy, order) {
     try {
-      dispatch(pending());
+      setPending(true)
       const res = await axios.get(
         baseURL +
           `api/admin/users/?limit=${limit}&page=${page}&sortBy=${sortBy},${order}`,
@@ -40,8 +40,10 @@ export default function UsersList() {
       setAllUsers(res.data.list);
       setPages(res.data.pages);
       setActivePage(page);
-      dispatch(fulfilled(res.data.message));
+      // dispatch(fulfilled(res.data.message));
+      setPending(false)
     } catch (error) {
+      setPending(false)
       dispatch(rejected(error.response.data.message));
     }
   }
@@ -105,7 +107,7 @@ export default function UsersList() {
                   }
                 ></i>
                 {
-                  isLoading ? <div className="position-absolute" style={{top:"8px", left:"120px"}}>
+                  pending ? <div className="position-absolute" style={{top:"8px", left:"120px"}}>
                   <Spinner size="sm" />
                 </div> : ""
                 }
