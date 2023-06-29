@@ -7,7 +7,7 @@ import {
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../baseURL";
-import { pending } from "../redux/slices/authSlice";
+import { pending } from "../redux/slices/productSlice";
 import { loadStripe } from "@stripe/stripe-js";
 import { clientSecretStripe } from "../utils/clientSecretStrippe";
 import Spinner from "../components/Spinner"
@@ -18,6 +18,7 @@ const stripePromise = loadStripe(clientSecretStripe);
 export default function Cart() {
   const { cart, total } = useSelector((state) => state.shopCart);
   const { isLoggedIn, user, isLoading } = useSelector((state) => state.auth);
+  const products = useSelector(state => state.products);
   const dispatch = useDispatch();
 
   const checkoutHandler = async (e) => {
@@ -53,6 +54,7 @@ export default function Cart() {
 
   return (
     <>
+      
       <div
         className="offcanvas offcanvas-end cart"
         tabIndex="-1"
@@ -67,7 +69,12 @@ export default function Cart() {
             aria-label="Close"
           ></button>
         </div>
-        <div className="offcanvas-body">
+        { isLoading ? 
+          <div className="offcanvas-body text-center mt-5">
+            <Spinner size="md" />
+          </div> :
+          <div className="offcanvas-body">
+          
           <h5 className="text-center">Your Cart</h5>
           {cart.length ===0 && <h3 className="text-secondary text-center my-4">Your Cart is Empty</h3>}
           {cart.map((prod) => (
@@ -97,12 +104,12 @@ export default function Cart() {
           </div>
           <div className="text-center mt-3">
             {cart.length !==0 && (isLoggedIn ? <button onClick={checkoutHandler} className="bye-now">
-              {isLoading ? <Spinner size="sm"/> : "BUY NOW"}
+              {products.isLoading ? <Spinner size="sm"/> : "BUY NOW"}
               </button> : 
               <span className="alert alert-warning " disabled>please <Link to="/login">login</Link> first</span>)
               }
           </div>
-        </div>
+        </div>}
       </div>
     </>
   );

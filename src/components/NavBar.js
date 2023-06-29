@@ -29,7 +29,7 @@ export default function NavBar() {
   const location = useLocation();
 
   // -------------------- redux states
-  const { user, isLoggedIn } = useSelector((state) => state.auth);
+  const { user, isLoggedIn, isLoading } = useSelector((state) => state.auth);
   const shopCart = useSelector((state) => state.shopCart);
   const { wishList } = useSelector((state) => state.wishList);
   const { prodSearch,  } = useSelector((state) => state.products);
@@ -151,7 +151,7 @@ export default function NavBar() {
                     <i className="fa-regular   fa-heart text-white fs-4"></i>
                   </Link>
                   {wishList.length > 0 && (
-                    <span
+                    !isLoading && <span
                       className="ms-0 position-absolute"
                       style={{
                         color: "#fff",
@@ -177,7 +177,7 @@ export default function NavBar() {
                   >
                     <i className="fa-sharp fa-solid text-white fa-cart-shopping fs-4"></i>
                     {shopCart.cart.length > 0 && (
-                      <span
+                      !isLoading && <span
                         className="ms-0 position-absolute"
                         style={{
                           color: "#fff",
