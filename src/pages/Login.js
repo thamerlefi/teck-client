@@ -5,12 +5,19 @@ import {  login, reset } from "../redux/slices/authSlice";
 import Spinner from "../components/Spinner"
 import "../css/login.css";
 import HelmetTitle from "../components/HelmetTitle";
+import validate from "../utils/inputValidation";
+
 
 export default function Login() {
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginErr, setLoginErr] = useState({
+    email: "",
+    password: ""
+  });
   const { isLoading, isError, isSuccess, message, isLoggedIn } = useSelector(
     (state) => state.auth
   );
@@ -26,11 +33,13 @@ export default function Login() {
   const user = { email, password };
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(login(user));
+    const errors = validate({email,password}) 
+    setLoginErr(errors)
+    if (Object.keys(errors).length === 0) dispatch(login(user));
   };
   
   return (
-    <div className="container-xxl d-flex align-items-center" style={{height:"calc(100vh - 106px)"}}>
+    <div className="container-xxl d-flex align-items-center" style={{minHeight:"calc(100vh - 106px)"}}>
       <HelmetTitle title="Tech-Shop | Login" />
       <div className="row login">
         <div className="col-12 col-md-6 p-0 img">
@@ -46,19 +55,26 @@ export default function Login() {
               <label className="mb-2">Email</label>
               <input
                 type="email"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setLoginErr({...loginErr, email:""})
+                  setEmail(e.target.value)}}
                 placeholder="email"
-                className="form-control mb-4"
+                className=
+                {`form-control ${loginErr?.email ? "mb-0 border border-danger" : "mb-4"} `}
               />
+              {loginErr?.email && <p className="input-error mb-2">{loginErr.email}</p>}
             </div>
             <div>
               <label className="mb-2">Password</label>
               <input
                 type="password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setLoginErr({...loginErr, password:""})
+                  setPassword(e.target.value)}}
                 placeholder="password"
-                className="form-control"
+                className={`form-control ${loginErr?.password ? "border border-danger" : ""}`}
               />
+              {loginErr?.password && <p className="input-error mb-2">{loginErr.password}</p>}
               <Link to="/reset-password" className="mt-2 d-block text-center">
                 Forgot your Password ?
               </Link>

@@ -9,19 +9,26 @@ import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import HelmetTitle from "../components/HelmetTitle";
 import { useEffect } from "react";
+import validate from "../utils/inputValidation";
 
 export default function ResetPass() {
   const dispatch = useDispatch();
   const {isLoading} = useSelector((state) => state.auth);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [loginErr, setLoginErr] = useState({
+    email: ""
+  });
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
   const resetPassHandler = async (e) => {
     e.preventDefault();
+    const errors = validate({email}) 
+    setLoginErr(errors)
     try {
+      if (Object.keys(errors).length === 0){
       dispatch(pending());
       const res = await axios.post(`${baseURL}api/user/forgot-password`, {
         email,
@@ -29,7 +36,7 @@ export default function ResetPass() {
       setMessage(res.data.message);
       dispatch(fulfilled());
       toast("please check your email to reset your password",{type:"success"})
-    } catch (error) {
+    }} catch (error) {
       setMessage(error.response.data.message);
       dispatch(rejected());
     }
@@ -53,10 +60,14 @@ export default function ResetPass() {
               <input
                 type="email"
                 value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e)=>{
+                  setLoginErr({...loginErr,email:""})
+                  setEmail(e.target.value)}}
                 placeholder="email"
-                className="form-control mb-4"
+                className=
+                {`form-control ${loginErr?.email ? "mb-0 border border-danger" : "mb-4"} `}
               />
+              {loginErr?.email && <p className="input-error ">{loginErr.email}</p>}
             </div>
             
 
