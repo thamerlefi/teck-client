@@ -61,7 +61,8 @@ export default function UsersList() {
   //------------------------------ delete a user handler (admin)
   const deleteUserHandler = async (user) => {
     try {
-      dispatch(pending());
+      console.log("object")
+      setPending(true)
       const res = await axios.delete(
         baseURL + `api/admin/remove-user/${user._id}`,
         {
@@ -70,8 +71,8 @@ export default function UsersList() {
           },
         }
       );
+      setPending(false)
       getAllUsers(5, activePage || activePage - 1);
-      dispatch(fulfilled(res.data.message));
       toast(res.data.message, { type: "success" });
     } catch (error) {
       dispatch(rejected(error.response.data.message));
