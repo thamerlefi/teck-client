@@ -62,7 +62,12 @@ const cartSlice = createSlice({
         updateQuantity: (state, action) =>{
             state.cart.map(prod=>{
                 if(prod._id === action.payload._id && action.payload.quantity > 0) {
-                   prod.count = action.payload.quantity 
+                    if (prod.stock < action.payload.quantity){
+                        prod.count = action.payload.stock
+                        toast(`sorry, we only have ${prod.stock} pieces left` ,{type: "error"})
+                    } else{
+                        prod.count = action.payload.quantity 
+                    }
                    prod.subTotal = prod.price * prod.count
                } else if(prod._id === action.payload._id && action.payload.quantity === 0){
                 state.cart = state.cart.filter(prod=>prod._id !== action.payload._id)
