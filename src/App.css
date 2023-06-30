@@ -17,7 +17,7 @@
 class="Toastify__toast-container Toastify__toast-container--bottom-center"
 */
 .Toastify__toast-container{
-    z-index: 1000000000000000000000000000000 !important;
+    z-index: 9999 !important;
 }
 .body{
     min-height: calc(100vh - 106px);
@@ -178,7 +178,7 @@ p{
 }
 .fade.modal{
     top: 90px !important;
-    z-index: 1000000 !important;
+    z-index: 9998 !important;
 }
 
 .nav-links:hover{
@@ -264,7 +264,7 @@ p{
 .footer{
     background-color: var(--color-dark);
     position: relative;
-    z-index: 10000 !important;
+    z-index: 9997 !important;
     
 }
 
