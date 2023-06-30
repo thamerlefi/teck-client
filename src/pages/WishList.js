@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 
 export default function WishList() {
   const { wishList } = useSelector((state) => state.wishList);
+  const { isLoading } = useSelector((state) => state.auth);
 
   const { pathname } = useLocation();
   useEffect(() => {
@@ -14,6 +15,14 @@ export default function WishList() {
   }, [pathname]);
 
   return (
+    isLoading ?
+    <div
+      className="spinner-border loading-store "
+      style={{ width: "4rem", height: "4rem", marginTop: "300px" }}
+      role="status"
+    >
+      <span className="visually-hidden">Loading...</span>
+    </div>:
     <>
       {wishList.length === 0 ? (
         <NotFound msg="Your WishList is Empty" />
