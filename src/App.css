@@ -17,7 +17,7 @@
 class="Toastify__toast-container Toastify__toast-container--bottom-center"
 */
 .Toastify__toast-container{
-    z-index: 1000000000000000000000000000000000000000000000000000000000000000000000000000000 !important;
+    z-index: 1000000000000000000000000000000 !important;
 }
 .body{
     min-height: calc(100vh - 106px);
