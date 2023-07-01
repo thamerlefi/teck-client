@@ -23,6 +23,7 @@ export default function OrderHistory() {
       .then((res) => {
         setUserOrders(res.data.orders);
         setPending(false);
+        
       });
   }, []);
 
@@ -62,10 +63,25 @@ export default function OrderHistory() {
             </tr>
           </thead>
           <tbody>
-            {userOrders.map((order) => (
+            {
+            userOrders.length === 0 && !pending ? 
+            <td colSpan={5}>
+            <h5
+              style={{
+                width: "300px",
+                padding: "60px 0",
+                margin: "auto",
+              }}
+            >
+              You didn't pass any order yet !!
+            </h5>
+          </td>:
+            userOrders.map((order) => (
               <tr key={order._id}>
                 <td>
-                  {order.products.map((prod) => (
+                  {
+                  
+                  order.products.map((prod) => (
                     <div
                       key={prod._id}
                       className="d-flex mt-1 align-items-center"

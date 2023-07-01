@@ -11,8 +11,8 @@ function validate(value){
     
     if (value.lastName?.trim() === ""){
         error.lastName = "last name should not be empty";
-    }else if (value.lastName?.length <= 4){
-        error.lastName = "last name should have at least 5 characters";
+    }else if (value.lastName?.length <= 3){
+        error.lastName = "last name should have at least 4 characters";
     }
 
     if (value.email.trim() === '') {
@@ -30,7 +30,7 @@ function validate(value){
     if (value.confirm && (value.confirm?.trim() === '' || value.confirm !== value.password) ) {
         error.confirm = "Password not matches"
     }
-    
+
     return error
 }
 

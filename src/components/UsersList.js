@@ -10,16 +10,20 @@ import HelmetTitle from "./HelmetTitle";
 
 export default function UsersList() {
   const dispatch = useDispatch();
-  // const {isLoading} = useSelector(state=>state.auth)
+  const auth = useSelector(state=>state.auth)
   const [pending, setPending] = useState(true)
   const [allUsers, setAllUsers] = useState([]);
   const [pages, setPages] = useState(1);
   const [activePage, setActivePage] = useState(1);
-
+  const [adminId,setAdminId] = useState("")
   // sort states
   const [sortBy, setSortBy] = useState("createdAt");
   const [order, setOrder] = useState("asc");
 
+  useEffect(() => {
+    setAdminId(auth.user?.id)
+  }, [auth.user]);  
+  console.log(adminId)
   useEffect(() => {
     getAllUsers(5, activePage, sortBy, order);
   }, [sortBy, order,activePage]);
@@ -139,7 +143,10 @@ export default function UsersList() {
           </tr>
         </thead>
         <tbody>
-          {allUsers.map((user, i) => (
+          
+          { 
+          
+          allUsers.map((user, i) => (
             <tr key={user._id}>
               <td>
                 <div className="d-flex align-items-center">
@@ -152,6 +159,7 @@ export default function UsersList() {
                   <div className="ms-3">
                     <p className="fw-bold mb-1">
                       {user.firstName + " " + user.lastName}
+                      {adminId=== user._id && <span className="ms-2">(Me)</span>}
                     </p>
                     <p className="text-muted mb-0">{user.email}</p>
                   </div>
@@ -164,10 +172,13 @@ export default function UsersList() {
                 </td>
               <td>
                 <a href="#!" className="text-secondary">
-                  <i
+                  {
+                    user._id !== adminId &&
+                    <i
                     onClick={() => deleteUserHandler(user)}
                     className="fa-solid fa-trash "
                   ></i>
+                  }
                 </a>
               </td>
             </tr>

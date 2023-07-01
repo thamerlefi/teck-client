@@ -66,7 +66,7 @@ function App() {
   },[location])
   return (
     <div className="App position-relative">
-      <ToastContainer position="bottom-center" autoClose={5000} />
+      <ToastContainer position="bottom-center" autoClose={3000} />
       <NavBar />
       <div className="body">
         <Routes>

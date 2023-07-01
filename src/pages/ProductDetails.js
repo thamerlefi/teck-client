@@ -32,7 +32,7 @@ export default function ProductDetails() {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [randomProds, setRandomProds] = useState([]);
-
+  
   const { wishList } = useSelector((state) => state.wishList);
   const wishProd = wishList.find((prod) => prod._id === product._id);
 
@@ -46,8 +46,13 @@ export default function ProductDetails() {
       rating,
     };
     e.preventDefault();
+    
     try {
       setPending(true);
+      if (comment.trim()===""){
+        setPending(false);
+        return toast("Comment is required", { type: "error" });
+      } else
       if (rating === 0) {
         setPending(false);
         return toast("Rating is required", { type: "error" });

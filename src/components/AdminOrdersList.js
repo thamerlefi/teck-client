@@ -78,6 +78,18 @@ export default function AdminOrdersList() {
                 >
                   <span className="visually-hidden">Loading...</span>
                 </div>
+              ) : orders.length === 0 ? (
+                <td colSpan={5}>
+                  <h5
+                    style={{
+                      width: "300px",
+                      padding: "60px 0",
+                      margin: "auto",
+                    }}
+                  >
+                    No {filter.split(",")[1]} order found !!
+                  </h5>
+                </td>
               ) : (
                 orders.map((order) => (
                   <tr key={order._id}>
@@ -139,7 +151,7 @@ export default function AdminOrdersList() {
           </table>
         </div>
       }
-      
+
       <div className="section mt-2 d-flex align-items-center justify-content-between">
         <div>
           <select

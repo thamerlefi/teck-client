@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fulfilled,
   getAllProducts,
+  getProdSearch,
   pending,
   rejected,
 } from "../redux/slices/productSlice";
@@ -14,6 +15,7 @@ import { Link } from "react-router-dom";
 import { deleteProd } from "../redux/slices/cartSlice";
 import { deleteFromWish } from "../redux/slices/wishSlice";
 import HelmetTitle from "../components/HelmetTitle";
+import { BsSearch } from "react-icons/bs";
 
 export default function AdminProducts() {
   const dispatch = useDispatch();
@@ -34,6 +36,8 @@ export default function AdminProducts() {
   const [category, setCategory] = useState("");
   const [stock, setStock] = useState(0);
 
+  const [prodSearch, setProdSearch] = useState("");
+  const [inSearch, setInSearch] = useState(false);
   //----------- sortBy state
   const [sortBy, setSortBy] = useState("createdAt");
   const [order, setOrder] = useState("asc");
@@ -108,15 +112,76 @@ export default function AdminProducts() {
       toast(error.response.data.message, { type: "error" });
     }
   };
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      getAllProducts({
+        limit: 5,
+        page: 1,
+        sortBy,
+        order,
+        categories: [],
+        search: prodSearch.trim().split(" ").join("+"),
+      })
+    );
+    setInSearch(true);
+  };
+  const removeSearchHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      getAllProducts({
+        limit: 5,
+        page: 1,
+        sortBy,
+        order,
+        categories: [],
+        search: "",
+      })
+    );
+    setInSearch(false);
+    setProdSearch("");
+  };
   //---------------------------------------------- J-S-X --------------------------//
   return (
     // ------------------ add new product button
     <div className="mt-3 ">
       <HelmetTitle title="Dashboard | Products" />
-      <div className=" mb-3">
+      <div className="d-flex justify-content-between align-items-center mb-3">
         <button className="newProd" onClick={handleShow}>
           <i className="fa-solid fa-plus"></i>
         </button>
+        <form
+          className="input-group"
+          style={{ maxWidth: "250px" }}
+          onSubmit={searchHandler}
+        >
+          <input
+            type="text"
+            value={prodSearch}
+            className="form-control p-1"
+            onChange={(e) => setProdSearch(e.target.value)}
+            placeholder="Search Product..."
+            aria-label="Search Product..."
+          />
+          {inSearch ? (
+            <span
+              className="input-group-text search"
+              id="basic-addon2"
+              onClick={removeSearchHandler}
+            >
+              <i className="fa-solid   fa-xmark"></i>
+            </span>
+          ) : (
+            <button
+              type="submit"
+              className="input-group-text search"
+              id="basic-addon2"
+            >
+              <BsSearch />
+            </button>
+          )}
+        </form>
       </div>
       <div className="">
         {/* ------------------------- products list */}
@@ -144,7 +209,10 @@ export default function AdminProducts() {
                       }
                     ></i>
                     {products.isLoading ? (
-                      <div className="position-absolute" style={{top:"8px", left:"120px"}}>
+                      <div
+                        className="position-absolute"
+                        style={{ top: "8px", left: "120px" }}
+                      >
                         <Spinner size="sm" />
                       </div>
                     ) : (
@@ -198,44 +266,58 @@ export default function AdminProducts() {
               </tr>
             </thead>
             <tbody>
-              {products.products.list.map((prod) => (
-                <tr key={prod._id}>
-                  <td>
-                    <div className="d-flex align-items-center ">
-                      <img
-                        src={prod.image.secure_url}
-                        alt=""
-                        style={{ width: "45px", height: "45px" }}
-                        className="rounded-circle"
-                      />
-                      <div className="ms-3">
-                        <p className="fw-bold mb-1">
-                          {`${prod.name.slice(0, 20)}${
-                            prod.name.length > 20 ? "..." : ""
-                          }`}
-                        </p>
-                        <p className="text-muted mb-0">{prod.category}</p>
+              {products.products.list.length === 0 ? (
+                <td colSpan={5}>
+                  <h5
+                    style={{
+                      width: "300px",
+                      padding: "60px 0",
+                      margin: "auto",
+                    }}
+                  >
+                    No product found !!
+                  </h5>
+                </td>
+              ) : (
+                products.products.list.map((prod) => (
+                  <tr key={prod._id}>
+                    <td>
+                      <div className="d-flex align-items-center ">
+                        <img
+                          src={prod.image.secure_url}
+                          alt=""
+                          style={{ width: "45px", height: "45px" }}
+                          className="rounded-circle"
+                        />
+                        <div className="ms-3">
+                          <p className="fw-bold mb-1">
+                            {`${prod.name.slice(0, 20)}${
+                              prod.name.length > 20 ? "..." : ""
+                            }`}
+                          </p>
+                          <p className="text-muted mb-0">{prod.category}</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>{prod.price} $</td>
-                  <td>{prod.stock} </td>
-                  <td>
-                    <Link
-                      onClick={() => deleteProductHandler(prod._id)}
-                      className="text-secondary me-4"
-                    >
-                      <i className="fa-solid fa-trash "></i>
-                    </Link>
-                    <Link
-                      to={`/admin/products/update/${prod._id}`}
-                      className="text-secondary"
-                    >
-                      <i className="fa-solid fa-pen-to-square"></i>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td>{prod.price} $</td>
+                    <td>{prod.stock} </td>
+                    <td>
+                      <Link
+                        onClick={() => deleteProductHandler(prod._id)}
+                        className="text-secondary me-4"
+                      >
+                        <i className="fa-solid fa-trash "></i>
+                      </Link>
+                      <Link
+                        to={`/admin/products/update/${prod._id}`}
+                        className="text-secondary"
+                      >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
