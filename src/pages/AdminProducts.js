@@ -41,12 +41,13 @@ export default function AdminProducts() {
   //----------- sortBy state
   const [sortBy, setSortBy] = useState("createdAt");
   const [order, setOrder] = useState("asc");
+  const [limit, setLimit] = useState(5)
 
   useEffect(() => {
     dispatch(
-      getAllProducts({ limit: 5, page: 1, sortBy, order, categories: [] })
+      getAllProducts({ limit, page: 1, sortBy, order, categories: [] })
     );
-  }, [sortBy, order]);
+  }, [sortBy, order,limit]);
 
   // generate buttons pages
   let PagesButtons = [];
@@ -79,7 +80,7 @@ export default function AdminProducts() {
       dispatch(fulfilled());
       toast(res.data.message, { type: "success" });
       setShow(false);
-      dispatch(getAllProducts({ limit: 5, page: 1, sortBy, order }));
+      dispatch(getAllProducts({ limit, page: 1, sortBy, order }));
     } catch (error) {
       dispatch(rejected());
       toast(error.response.data.message, { type: "error" });
@@ -105,7 +106,7 @@ export default function AdminProducts() {
       const prodInWish = wishList.find((prod) => prod._id === id);
       if (prodInWish) dispatch(deleteFromWish(prodInCart));
       toast(res.data.message, { type: "success" });
-      dispatch(getAllProducts({ limit: 5, page: 1, sortBy, order }));
+      dispatch(getAllProducts({ limit, page: 1, sortBy, order }));
       return res.data;
     } catch (error) {
       dispatch(rejected());
@@ -117,7 +118,7 @@ export default function AdminProducts() {
     e.preventDefault();
     dispatch(
       getAllProducts({
-        limit: 5,
+        limit,
         page: 1,
         sortBy,
         order,
@@ -131,7 +132,7 @@ export default function AdminProducts() {
     e.preventDefault();
     dispatch(
       getAllProducts({
-        limit: 5,
+        limit,
         page: 1,
         sortBy,
         order,
@@ -321,7 +322,20 @@ export default function AdminProducts() {
             </tbody>
           </table>
         </div>
-        <div className="section mt-2 d-flex align-items-center justify-content-end pages">
+        <div className="section mt-2 d-flex align-items-center justify-content-between pages">
+        <select
+          className="form-select py-0 "
+          style={{ width: "auto" }}
+          onChange={(e) => {
+            // setActivePage(1);
+            setLimit(e.target.value);
+          }}
+        >
+          <option value={5}>Showing 5</option>
+          <option value={10}>Showing 10</option>
+          <option value={15}>Showing 15</option>
+        </select>
+        <div>
           {PagesButtons.map((page) => (
             <Link
               key={page}
@@ -334,6 +348,7 @@ export default function AdminProducts() {
               {page}
             </Link>
           ))}
+          </div>
         </div>
 
         {/* ------------------add product MODAL */}

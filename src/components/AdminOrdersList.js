@@ -15,12 +15,13 @@ export default function AdminOrdersList() {
   const [pages, setPages] = useState(1);
   const [activePage, setActivePage] = useState(1);
   const [filter, setFilter] = useState("");
+  const [limit, setLimit]= useState(5)
 
   useEffect(() => {
     setPending(true);
     axios
       .get(
-        `${baseURL}api/orders/all/?limit=${5}&page=${activePage}&sortBy=${sortBy},${order}&filter=${filter}`,
+        `${baseURL}api/orders/all/?limit=${limit}&page=${activePage}&sortBy=${sortBy},${order}&filter=${filter}`,
         {
           headers: {
             "x-auth": localStorage.getItem("token"),
@@ -33,7 +34,7 @@ export default function AdminOrdersList() {
         setPending(false);
       })
       .catch((er) => console.log(er));
-  }, [activePage, filter]);
+  }, [activePage, filter,limit]);
 
   // generate buttons pages
   let PagesButtons = [];
@@ -153,7 +154,7 @@ export default function AdminOrdersList() {
       }
 
       <div className="section mt-2 d-flex align-items-center justify-content-between">
-        <div>
+        <div className="d-flex gap-1">
           <select
             onChange={(e) => {
               setActivePage(1);
@@ -167,6 +168,18 @@ export default function AdminOrdersList() {
             <option value="status,Shipped">Shipped</option>
             <option value="status,Delivered">Delivered</option>
           </select>
+          <select
+          className="form-select py-0 "
+          style={{ width: "auto" }}
+          onChange={(e) => {
+            // setActivePage(1);
+            setLimit(e.target.value);
+          }}
+        >
+          <option value={5}>Showing 5</option>
+          <option value={10}>Showing 10</option>
+          <option value={15}>Showing 15</option>
+        </select>
         </div>
         <div className="pages">
           {PagesButtons.map((page) => (
