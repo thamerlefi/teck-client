@@ -296,7 +296,7 @@ export default function OurStore() {
           )}
           <div className="filter-sort-grid mt-2 d-flex align-items-center justify-content-center justify-content-sm-between ">
             <p className="d-none d-sm-block p-opacity">
-              Showing 8 of {products?.total}
+              Showing {products.list?.length} of {products?.total || 0}
             </p>
             <div className="pages">
               {/* <Link className="me-2 ">{"<"}</Link> */}
